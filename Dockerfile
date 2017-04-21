@@ -11,6 +11,8 @@ RUN apk add --no-cache make gcc g++ python
 RUN mkdir -p /var/www/app
 WORKDIR ${appDir}
 
+# Add our package.json and install *before* adding our application files
+ADD package.json ./
 RUN npm install
 
 RUN npm install -g ava
