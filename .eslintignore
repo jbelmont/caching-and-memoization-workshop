@@ -1,0 +1,5 @@
+node_modules/*
+views/*
+static/build/*
+static/scss/*
+static/images/*

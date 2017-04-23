@@ -4,9 +4,9 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const webpack = require("webpack");
-const webpackDevMiddleware = require("webpack-dev-middleware");
-const webpackConfig = require("./webpack.config");
+const webpack = require('webpack');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackConfig = require('./webpack.config');
 
 const index = require('./routes');
 
@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'static')));
 app.use(favicon(path.join(__dirname, 'static/images', 'favicon.ico')));
 
 app.use(webpackDevMiddleware(compiler, {
-  publicPath: "/static/js"
+  publicPath: '/static/js'
 }));
 
 app.use('/', index);
