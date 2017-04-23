@@ -4,10 +4,13 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const webpack = require("webpack");
+const webpackConfig = require("./webpack.config");
 
 const index = require('./routes');
 
 const app = express();
+const compiler = webpack(webpackConfig);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -19,6 +22,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'static')));
 app.use(favicon(path.join(__dirname, 'static/images', 'favicon.ico')));
+
+app.use(webpackDevMiddleware(compiler, {
+  publicPath: "/static/js"
+}));
 
 app.use('/', index);
 
