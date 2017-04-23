@@ -5,6 +5,7 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const webpack = require("webpack");
+const webpackDevMiddleware = require("webpack-dev-middleware");
 const webpackConfig = require("./webpack.config");
 
 const index = require('./routes');

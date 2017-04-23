@@ -23,4 +23,4 @@ ADD . /var/www/app
 # Define mountable directories.
 VOLUME ["/usr/local/var/lib/couchdb"]
 
-CMD ["node", "bin/www"]
+CMD ["npm", "run", "dev"]

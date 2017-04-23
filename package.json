@@ -7,7 +7,10 @@
     "start": "docker-compose up web db redis",
     "stop": "docker-compose down",
     "test": "docker-compose up test redis",
-    "remove": "docker-compose rm"
+    "remove": "docker-compose rm",
+    "dev": "npm run server && npm run webpack",
+    "server": "node bin/www",
+    "webpack": "webpack --watch --config webpack.config.js"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
@@ -20,11 +23,25 @@
     "winston": "^2.3.1"
   },
   "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-env": "^1.4.0",
     "eslint": "^3.19.0",
     "extract-text-webpack-plugin": "^2.1.0",
     "node-sass": "^4.5.2",
     "sass-loader": "^6.0.3",
     "webpack": "^2.4.1",
     "webpack-dev-middleware": "^1.10.2"
+  },
+  "babel": {
+    "presets": [
+      [
+        "env", {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ]
+    ]
   }
 }
