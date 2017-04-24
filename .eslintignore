@@ -1,5 +1,3 @@
 node_modules/*
-views/*
-static/build/*
-static/scss/*
-static/images/*
+build/*.js
+config/*.js
