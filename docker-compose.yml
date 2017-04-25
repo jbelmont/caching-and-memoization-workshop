@@ -4,6 +4,8 @@ services:
     build: .
     environment:
       DOCKER: "true"
+    volumes:
+      - .:/var/www/app
     ports:
       - "8080:8080"
   test:
