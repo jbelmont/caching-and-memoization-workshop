@@ -36,5 +36,7 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
-# Build Directory
-/static/build
+# Vue Specific Folders
+dist/
+test/e2e/reports
+selenium-debug.log

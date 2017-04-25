@@ -7,6 +7,7 @@ if (!process.env.NODE_ENV) {
 
 const opn = require('opn')
 const path = require('path')
+const bodyParser = require('body-parser')
 const express = require('express')
 const webpack = require('webpack')
 const proxyMiddleware = require('http-proxy-middleware')
@@ -53,6 +54,10 @@ Object.keys(proxyTable).forEach(function (context) {
 // handle fallback for HTML5 history API
 app.use(require('connect-history-api-fallback')())
 
+// parse json response
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+
 // serve webpack bundle output
 app.use(devMiddleware)
 
@@ -63,6 +68,9 @@ app.use(hotMiddleware)
 // serve pure static assets
 const staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
+
+// Load users route
+app.use('/api/v1', require(path.join(__dirname, '../routes')));
 
 const uri = 'http://localhost:' + port
 
