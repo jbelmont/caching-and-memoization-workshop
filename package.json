@@ -4,15 +4,15 @@
   "private": true,
   "scripts": {
     "build": "docker-compose build",
-    "start": "docker-compose up web db redis",
+    "dev": "docker-compose up web db redis",
     "stop": "docker-compose down",
     "test": "docker-compose up test redis",
     "remove": "docker-compose rm",
-    "dev": "npm run server",
-    "build:server": "nodemon build/build.js",
+    "dev:server": "npm run server",
+    "build:server": "node build/build.js",
     "server": "nodemon build/dev-server.js",
-    "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
-    "lint:fix": "eslint --fix --ext .js,.vue src test/unit/specs test/e2e/specs test/integration"
+    "lint": "eslint --ext .js,.vue .",
+    "lint:fix": "eslint --fix --ext .js,.vue ."
   },
   "dependencies": {
     "body-parser": "~1.17.1",

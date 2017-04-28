@@ -44,7 +44,7 @@ compiler.plugin('compilation', function (compilation) {
 
 // proxy api requests
 Object.keys(proxyTable).forEach(function (context) {
-  const options = proxyTable[context]
+  let options = proxyTable[context]
   if (typeof options === 'string') {
     options = { target: options }
   }
@@ -70,7 +70,7 @@ const staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.asset
 app.use(staticPath, express.static('./static'))
 
 // Load users route
-app.use('/api/v1', require(path.join(__dirname, '../routes')));
+app.use('/api/v1', require(path.join(__dirname, '../routes')))
 
 const uri = 'http://localhost:' + port
 
@@ -83,7 +83,7 @@ console.log('> Starting dev server...')
 devMiddleware.waitUntilValid(() => {
   console.log('> Listening at ' + uri + '\n')
   // when env is testing and it is not docker, don't need to open it
-  if (autoOpenBrowser && process.env.NODE_ENV !== 'testing' && !Boolean(process.env.DOCKER)) {
+  if (autoOpenBrowser && process.env.NODE_ENV !== 'testing' && !process.env.DOCKER) {
     opn(uri)
   }
   _resolve()

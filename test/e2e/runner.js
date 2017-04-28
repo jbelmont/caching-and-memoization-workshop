@@ -10,7 +10,7 @@ server.ready.then(() => {
   // or override the environment flag, for example: `npm run e2e -- --env chrome,firefox`
   // For more information on Nightwatch's config file, see
   // http://nightwatchjs.org/guide#settings-file
-  const opts = process.argv.slice(2)
+  let opts = process.argv.slice(2)
   if (opts.indexOf('--config') === -1) {
     opts = opts.concat(['--config', 'test/e2e/nightwatch.conf.js'])
   }
