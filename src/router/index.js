@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
+import Main from '@/components/Index'
 import Users from '@/components/Users'
 
 Vue.use(Router)
@@ -10,8 +10,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Hello',
-      component: Hello
+      name: 'Index',
+      component: Main
     },
     {
       path: '/users',
