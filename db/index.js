@@ -1,6 +1,8 @@
 'use strict'
 
+const path = require('path')
 const nano = require('nano')('http://admin:password@db:5984')
+const client = require(path.join(__dirname, '../redis'))
 const winston = require('winston')
 
 const usermodels = require('./usersMock')
@@ -29,6 +31,7 @@ function retrieveDocument ({dbName, name}) {
   return new Promise((resolve, reject) => {
     dbName.get(name, (err, body) => {
       if (!err) {
+        client.set('users', JSON.stringify(body))
         resolve(body)
       } else {
         winston.error(err)

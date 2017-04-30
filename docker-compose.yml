@@ -8,6 +8,8 @@ services:
       - .:/var/www/app
     ports:
       - "8080:8080"
+    links:
+      - redis
   test:
     image: mhart/alpine-node:7.9.0
     working_dir: /var/www/app
@@ -27,5 +29,7 @@ services:
 
   redis:
     image: redis:3.0.7-alpine
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
     ports:
       - "6379:6379"

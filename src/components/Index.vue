@@ -4,14 +4,12 @@
       <!-- Class `area` is a container -->
       <div class="navbar area">
         <!-- Logo -->
-        <a href="#" class="brand">Brand</a>
+        <a href="#" class="dashboard">{{DASHBOARD}}</a>
         <!-- List of links -->
         <nav role="navigation" id="navigation" class="list">
-          <a href="#" class="item -link">Home</a>
-          <a href="#" class="item -link">Articles</a>
-          <a href="#" class="item -link">Projects</a>
-          <a href="#" class="item -link">Resources</a>
-          <a href="#" class="item -link">About me</a>
+          <a href="#" class="item -link">{{USERS}}</a>
+          <a href="#" class="item -link">{{SETTINGS}}</a>
+          <a href="#" class="item -link">{{PROFILE}}</a>
           <span class="item"><i class="fa fa-search"></i></span>
         </nav>
         <!-- Button to toggle the display menu  -->
@@ -21,22 +19,56 @@
         </button>
       </div>
     </div>
-    <ul id="users-list">
-      <template v-for="user in users">
-        <li>{{ user.first_name }}</li>
-        <li>{{ user.last_name }}</li>
-        <li>{{ user.email }}</li>
-      </template>
-    </ul>
+    <table class="users-table">
+      <thead>
+        <tr>
+          <td>{{ID}}</td>
+          <td>{{FIRST_NAME}}</td>
+          <td>{{LAST_NAME}}</td>
+          <td>{{GENDER}}</td>
+          <td>{{EMAIL}}</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="user in users">
+          <td>{{ user.id }}</td>
+          <td>{{ user.first_name }}</td>
+          <td>{{ user.last_name }}</td>
+          <td>{{ user.gender }}</td>
+          <td>{{ user.email }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
 <script>
+import * as constants from '../constants'
+const {
+  DASHBOARD,
+  USERS,
+  SETTINGS,
+  PROFILE,
+  ID,
+  FIRST_NAME,
+  LAST_NAME,
+  GENDER,
+  EMAIL
+} = constants
 export default {
   name: 'index',
   data () {
     return {
-      users: []
+      users: [],
+      DASHBOARD,
+      USERS,
+      SETTINGS,
+      PROFILE,
+      ID,
+      FIRST_NAME,
+      LAST_NAME,
+      GENDER,
+      EMAIL
     }
   },
   mounted: function () {
@@ -93,10 +125,20 @@ a {
   }
 }
 
-// Component
+table {
+  width: 100%;
+}
+
+td, th {
+  text-align: center;
+  border: solid 1px #ccc;
+  font-size: 22px;
+  padding: 6px;
+  word-wrap: break-word;
+}
+
 .navbar {
-  // Brand
-  & > .brand {
+  & > .dashboard {
     display: block;
     font-size: 16px;
     color: #777;
@@ -130,9 +172,7 @@ a {
     margin-top: 8px;
     margin-bottom: 8px;
 
-    &,
-    &:before,
-    &:after {
+    &, &:before, &:after {
       display: block;
       width: 24px;
       height: 3px;
@@ -140,9 +180,15 @@ a {
       background-color: #555555;
     }
 
-    &:before, &:after { position: absolute; content: ""; }
-    &:before { top: -8px; }
-    &:after { top: 8px; }
+    &:before, &:after {
+      position: absolute; content: "";
+    }
+    &:before {
+      top: -8px;
+    }
+    &:after {
+      top: 8px;
+    }
   }
 
   & > .toggle.-active > .icon {
@@ -196,9 +242,7 @@ a {
     color: $navbar-item-color;
     border-bottom: $navbar-item-border-width solid $navbar-item-border;
 
-    &.-active,
-    &:hover,
-    &:focus {
+    &.-active, &:hover, &:focus {
       color: $navbar-item-active-color;
       border-bottom-color: $navbar-item-active-border;
     }
