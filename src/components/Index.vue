@@ -1,12 +1,26 @@
 <template>
   <div class="caching-container">
-    <nav class="navigation-container">
-      <div class="navigation-container-dashboard">
+    <div class="navbar-component">
+      <!-- Class `area` is a container -->
+      <div class="navbar area">
+        <!-- Logo -->
+        <a href="#" class="brand">Brand</a>
+        <!-- List of links -->
+        <nav role="navigation" id="navigation" class="list">
+          <a href="#" class="item -link">Home</a>
+          <a href="#" class="item -link">Articles</a>
+          <a href="#" class="item -link">Projects</a>
+          <a href="#" class="item -link">Resources</a>
+          <a href="#" class="item -link">About me</a>
+          <span class="item"><i class="fa fa-search"></i></span>
+        </nav>
+        <!-- Button to toggle the display menu  -->
+        <button data-collapse data-target="#navigation" class="toggle">
+          <!-- Hamburger icon -->
+          <span class="icon"></span>
+        </button>
       </div>
-      <div class="navigation-container-settings">
-      </div>
-      <div class="navigation-container-profile"></div>
-    </nav>
+    </div>
     <ul id="users-list">
       <template v-for="user in users">
         <li>{{ user.first_name }}</li>
@@ -41,22 +55,153 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h1, h2 {
-  font-weight: normal;
+<style scoped lang="scss">
+@import '../scss/variables';
+// Scaffolding
+*, *:before, *:after {
+  box-sizing: border-box;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
+body {
+  background-color: #f5f5f5;
+  color: #333;
+  font-size: 14px;
+  font-family: Verdana, Arial, sans-serif;
+  line-height: 20px;
 }
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
 a {
-  color: #42b983;
+  text-decoration: none; transition: all 0.3s linear 0s;
+}
+
+.area {
+  display: flex; flex-flow: row wrap; align-items: stretch; margin-left: auto; margin-right: auto;
+  @media (min-width: 768px) { width: 750px; }
+  @media (min-width: 992px) { width: 970px; }
+  @media (min-width: 1200px) { width: 1140px; }
+}
+
+// Navigation component
+// ----------
+
+// Component skeleton
+.navbar-component {
+  background-color: $navbar-background;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16), 0 2px 10px rgba(0, 0, 0, 0.12);
+
+  & > .navbar {
+    justify-content: space-between;
+  }
+}
+
+// Component
+.navbar {
+  // Brand
+  & > .brand {
+    display: block;
+    font-size: 16px;
+    color: #777;
+    margin: round(($navbar-height - 20) / 2);
+  }
+
+  // Toggle button
+  & > .toggle {
+    border: 0;
+    background-color: transparent;
+    outline: none;
+    border: 0;
+    display: inline-block;
+    background-color: transparent;
+    background-image: none;
+    vertical-align: middle;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+    touch-action: manipulation;
+    user-select: none;
+    padding: round(($navbar-height - 20) / 2);
+
+     @media (min-width: $navbar-collapse-breakpoint) {
+       display: none;
+     }
+  }
+
+  & > .toggle > .icon {
+    position: relative;
+    margin-top: 8px;
+    margin-bottom: 8px;
+
+    &,
+    &:before,
+    &:after {
+      display: block;
+      width: 24px;
+      height: 3px;
+      transition: background-color 0.3s linear, transform 0.3s linear;
+      background-color: #555555;
+    }
+
+    &:before, &:after { position: absolute; content: ""; }
+    &:before { top: -8px; }
+    &:after { top: 8px; }
+  }
+
+  & > .toggle.-active > .icon {
+    background-color: transparent;
+
+    &:before { transform: translateY(8px) rotate(45deg); }
+    &:after { transform: translateY(-8px) rotate(-45deg); }
+  }
+
+  // List of items
+  & > .list {
+    display: none;
+    flex-flow: row nowrap;
+    align-items: center;
+    white-space: nowrap;
+
+    @media (min-width: $navbar-collapse-breakpoint) {
+      display: flex;
+    }
+
+    @media (max-width: $navbar-collapse-breakpoint) {
+      position: fixed;
+      top: $navbar-height;
+      left: 0;
+      width: 100%;
+      overflow-y: hidden;
+      overflow-x: auto;
+      border-top: 1px solid $navbar-border;
+      background-color: $navbar-background;
+    }
+
+    &.-on {
+      display: flex;
+    }
+  }
+
+  & > .list > .item {
+    display: block;
+    flex-shrink: 0;
+    height: $navbar-height;
+    line-height: $navbar-height;
+    padding-left: round(($navbar-height - 20) / 2);
+    padding-right: round(($navbar-height - 20) / 2);
+    text-transform: uppercase;
+    color: $navbar-item-color;
+    font-size: $navbar-item-font-size;
+  }
+
+  & > .list > .item.-link {
+    line-height: $navbar-height + $navbar-item-border-width;
+    color: $navbar-item-color;
+    border-bottom: $navbar-item-border-width solid $navbar-item-border;
+
+    &.-active,
+    &:hover,
+    &:focus {
+      color: $navbar-item-active-color;
+      border-bottom-color: $navbar-item-active-border;
+    }
+  }
 }
 </style>
