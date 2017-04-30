@@ -19,31 +19,35 @@
         </button>
       </div>
     </div>
-    <table class="users-table">
-      <thead>
-        <tr>
-          <td>{{ID}}</td>
-          <td>{{FIRST_NAME}}</td>
-          <td>{{LAST_NAME}}</td>
-          <td>{{GENDER}}</td>
-          <td>{{EMAIL}}</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="user in users">
-          <td>{{ user.id }}</td>
-          <td>{{ user.first_name }}</td>
-          <td>{{ user.last_name }}</td>
-          <td>{{ user.gender }}</td>
-          <td>{{ user.email }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="users-area">
+      <admin class="users-area-admin"></admin>
+      <table class="users-area-table">
+        <thead>
+          <tr>
+            <td>{{ID}}</td>
+            <td>{{FIRST_NAME}}</td>
+            <td>{{LAST_NAME}}</td>
+            <td>{{GENDER}}</td>
+            <td>{{EMAIL}}</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="user in users">
+            <td>{{ user.id }}</td>
+            <td>{{ user.first_name }}</td>
+            <td>{{ user.last_name }}</td>
+            <td>{{ user.gender }}</td>
+            <td>{{ user.email }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
 <script>
 import * as constants from '../constants'
+import Admin from './Admin'
 const {
   DASHBOARD,
   USERS,
@@ -57,6 +61,9 @@ const {
 } = constants
 export default {
   name: 'index',
+  components: {
+    Admin
+  },
   data () {
     return {
       users: [],
@@ -105,6 +112,19 @@ a {
   text-decoration: none; transition: all 0.3s linear 0s;
 }
 
+.users-area {
+  display: flex;
+  flex-direction: row;
+
+  &-table {
+    width: 85%;
+  }
+
+  &-admin {
+    width: 15%;
+  }
+}
+
 .area {
   display: flex; flex-flow: row wrap; align-items: stretch; margin-left: auto; margin-right: auto;
   @media (min-width: 768px) { width: 750px; }
@@ -123,10 +143,6 @@ a {
   & > .navbar {
     justify-content: space-between;
   }
-}
-
-table {
-  width: 100%;
 }
 
 td, th {
