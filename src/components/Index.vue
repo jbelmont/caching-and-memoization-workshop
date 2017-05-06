@@ -20,7 +20,6 @@
       </div>
     </div>
     <div class="users-area">
-      <admin class="users-area-admin"></admin>
       <table class="users-area-table">
         <thead>
           <tr>
@@ -29,6 +28,7 @@
             <td>{{LAST_NAME}}</td>
             <td>{{GENDER}}</td>
             <td>{{EMAIL}}</td>
+            <td>{{REMOVE_USER}}</td>
           </tr>
         </thead>
         <tbody>
@@ -38,6 +38,7 @@
             <td>{{ user.last_name }}</td>
             <td>{{ user.gender }}</td>
             <td>{{ user.email }}</td>
+            <td><button :data-id=user.id v-on:click="removeUser">{{REMOVE_USER}}</button></td>
           </tr>
         </tbody>
       </table>
@@ -47,7 +48,7 @@
 
 <script>
 import * as constants from '../constants'
-import Admin from './Admin'
+import IndexDb from '../utils/indexdb'
 const {
   DASHBOARD,
   USERS,
@@ -57,13 +58,22 @@ const {
   FIRST_NAME,
   LAST_NAME,
   GENDER,
-  EMAIL
+  EMAIL,
+  REMOVE_USER
 } = constants
+
+function createIndexDb (userInfo) {
+  const db = new IndexDb()
+  db.createDb(userInfo)
+}
+
+function queryIndexDb ({key, getValue}) {
+  const db = new IndexDb()
+  return db.queryDb({key, getValue})
+}
+
 export default {
   name: 'index',
-  components: {
-    Admin
-  },
   data () {
     return {
       users: [],
@@ -75,19 +85,34 @@ export default {
       FIRST_NAME,
       LAST_NAME,
       GENDER,
-      EMAIL
+      EMAIL,
+      REMOVE_USER
     }
   },
   mounted: function () {
-    this.getUsers()
+    return this.getUsers()
   },
   methods: {
+    queryIndexDb: function () {
+      return queryIndexDb({
+        key: 'users',
+        getValue: 'Main Store'
+      })
+      .then(val => val.users)
+      .catch((err) => {
+        console.error(err)
+      })
+    },
     getUsers: function () {
       this.$http.get('api/v1/users').then(function (data) {
         this.users = data.body
+        createIndexDb(this.users)
       }, function (err) {
         console.error(err)
       })
+    },
+    removeUser: function (event) {
+      console.log(event)
     }
   }
 }
@@ -117,11 +142,7 @@ a {
   flex-direction: row;
 
   &-table {
-    width: 85%;
-  }
-
-  &-admin {
-    width: 15%;
+    width: 100%;
   }
 }
 
