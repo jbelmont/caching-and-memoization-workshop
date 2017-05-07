@@ -9,6 +9,7 @@ const opn = require('opn')
 const path = require('path')
 const bodyParser = require('body-parser')
 const express = require('express')
+const favicon = require('serve-favicon')
 const webpack = require('webpack')
 const proxyMiddleware = require('http-proxy-middleware')
 const webpackConfig = process.env.NODE_ENV === 'testing'
@@ -67,7 +68,11 @@ app.use(hotMiddleware)
 
 // serve pure static assets
 const staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
+
 app.use(staticPath, express.static('./static'))
+
+// Serve Vue.js Favicon
+app.use(favicon(path.join(__dirname, '../static/images', 'favicon.ico')))
 
 // Load users route
 app.use('/api/v1', require(path.join(__dirname, '../routes')))
