@@ -6,7 +6,7 @@
     "build": "docker-compose build",
     "dev": "docker-compose up web db redis",
     "stop": "docker-compose down",
-    "test": "docker-compose up test redis",
+    "test": "bash scripts/test.sh",
     "remove": "docker-compose rm",
     "dev:server": "npm run server",
     "build:server": "node build/build.js",
