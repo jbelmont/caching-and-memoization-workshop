@@ -26,7 +26,7 @@ else
 fi
 
 cleanup () {
-  docker-compose stop
+  docker-compose down
 }
 
 cleanup

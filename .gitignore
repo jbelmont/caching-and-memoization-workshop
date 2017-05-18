@@ -42,3 +42,6 @@ test/e2e/reports
 selenium-debug.log
 
 /_book
+
+# redis
+dump.rdb

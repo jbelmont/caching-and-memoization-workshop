@@ -301,3 +301,28 @@ Read more commands at [Redis Set Commands](https://redis.io/commands#set)
 [Sorted Set Data Type](https://redis.io/topics/data-types#sorted-sets)
 
 [Sorted Set Commands](https://redis.io/commands#sorted_set)
+
+```sh
+127.0.0.1:6379> zadd grades 95 britney 85 dave 93 ashley 100 zhou
+(integer) 4
+
+127.0.0.1:6379> zcard grades
+(integer) 4
+
+127.0.0.1:6379> zrange grades 0 -1
+1) "dave"
+2) "ashley"
+3) "britney"
+4) "zhou"
+
+127.0.0.1:6379> zrevrank grades dave
+(integer) 3
+
+127.0.0.1:6379> zrevrank grades zhou
+(integer) 0
+```
+
+* `zadd` added 4 members to the grades sorted set
+* `zcard` returned the cardinality value of 4
+* `zrange` returned the lowest to highest members in the sorted set
+* `zrevrank` returned the index of a member in a sorted set, with scores ordered from high to low

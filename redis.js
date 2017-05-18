@@ -6,7 +6,7 @@ redisClient.on('error',
 )
 
 redisClient.on('connect',
-  () => winston.info('Connected to Redis')
+  () => {}
 )
 
 module.exports = redisClient
