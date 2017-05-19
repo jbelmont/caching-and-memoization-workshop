@@ -16,3 +16,19 @@ test.cb('setList should return a list data type', t => {
     t.end()
   })
 })
+
+test.cb('getIndex should return value at index', t => {
+  const args = {
+    key: 'list:test',
+    index: 2
+  }
+  list.getIndex(args.key, args.index, (err, reply) => {
+    if (err) t.fail(err)
+    t.is(reply, 'peach')
+    t.end()
+  })
+})
+
+// TODO: implement list function llen
+
+// TODO: implement list function rpop

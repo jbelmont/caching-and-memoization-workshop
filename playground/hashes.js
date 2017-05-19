@@ -23,7 +23,15 @@ function getAll (key, cb) {
   })
 }
 
+function getHKeys (key, cb) {
+  client.hkeys(key, (err, reply) => {
+    if (err) return cb(err)
+    cb(null, reply)
+  })
+}
+
 module.exports = {
   setHash,
-  getAll
+  getAll,
+  getHKeys
 }

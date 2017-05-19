@@ -16,7 +16,15 @@ function getList (key, cb) {
   })
 }
 
+function getIndex (key, index, cb) {
+  client.lindex(key, index, (err, reply) => {
+    if (err) return cb(err)
+    cb(null, reply)
+  })
+}
+
 module.exports = {
   setList,
-  getList
+  getList,
+  getIndex
 }

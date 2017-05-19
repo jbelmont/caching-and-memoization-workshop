@@ -2,6 +2,8 @@
 
 [Redis Download](https://redis.io/download)
 
+[Redis REPL](https://try.redis.io/)
+
 Redis is not a plain key-value store, it is actually a data structures server, supporting different kinds of values.
 
 Redis Data Structures:
