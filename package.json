@@ -11,6 +11,7 @@
     "dev:server": "npm run server",
     "build:server": "node build/build.js",
     "server": "nodemon build/dev-server.js",
+    "pub:sub": "node playground/pubSub.js",
     "lint": "eslint --ext .js,.vue .",
     "lint:fix": "eslint --fix --ext .js,.vue .",
     "docs:prepare": "gitbook install",

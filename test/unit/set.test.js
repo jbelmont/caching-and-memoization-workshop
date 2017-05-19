@@ -5,7 +5,9 @@ const test = require('ava')
 const set = require('../../playground/set')
 
 const key = 'set:test'
+const key2 = 'diff:test'
 const setMembers = ['mike', 'jane', 'zhou', 'joseph', 'mary']
+const diffMembers = ['henry', 'ashley', 'roberto', 'gustav', 'joseph']
 
 test.cb('setAdd should add set data type', t => {
   const args = {
@@ -28,3 +30,21 @@ test.cb('getCardinality should return cardinality of set', t => {
     t.end()
   })
 })
+
+test.cb('getIntersection should get intersection between 2 or more sets', t => {
+  const args = {
+    key: key2,
+    members: diffMembers
+  }
+  set.setAdd(args)
+  set.getIntersection([key, key2], (err, intersection) => {
+    if (err) t.fail(err)
+    t.is(intersection[0], 'joseph')
+    t.end()
+  })
+})
+
+// TODO: implement sismember function
+
+
+// TODO: implement sunion function

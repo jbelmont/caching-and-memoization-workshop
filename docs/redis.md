@@ -138,6 +138,14 @@ group: string
 
 *Notice here that trying to increment movies:rocky created a Redis error which makes sense movies:rocky is a string*
 
+###### Exercise
+
+* Implement redis command `incr` using node_redis client library [Node Redis](https://github.com/jbelmont/node_redis)
+    * open `playground/strings.js`
+* `open test/unit/strings.test.js`
+    * Write a test with your new function
+* Run your test with command `npm test`
+
 #### Hashes
 
 [Hash Data Type](https://redis.io/topics/data-types#hashes)
@@ -186,6 +194,14 @@ Notice that we were able to set multiple fields with the Redis command `hmset` a
 
 *Hashes give you more control than regular strings because you can map values instead of one scalar value*
 
+###### Exercise
+
+* Implement redis command `hdel` using node_redis client library [Node Redis](https://github.com/jbelmont/node_redis)
+    * open `playground/hashes.js`
+* `open test/unit/hashes.test.js`
+    * Write a test with your new function
+* Run your test with command `npm test`
+
 #### Lists
 
 [List Data Type](https://redis.io/topics/data-types#lists)
@@ -232,6 +248,13 @@ Notice here that we pushed 4 strings onto the list `users`
 Notice that `rpop` removes and returns the last element of the list stored at `key` so when we run `llen` the list has been reduced by 1.
 
 Conversely `lpop` removes and returns the first element of the list stored at `key` so when we run `llen` again the list is now length of 2
+
+* Implement redis command `llen` or `rpop` using node_redis client library [Node Redis](https://github.com/jbelmont/node_redis)
+    * open `playground/list.js`
+* `open test/unit/list.test.js`
+    * Write a test with your new function
+* Run your test with command `npm test`
+
 
 #### Sets
 
@@ -298,11 +321,24 @@ Notice here that created 2 different sets `movies` and `movies2` and we were abl
 
 Read more commands at [Redis Set Commands](https://redis.io/commands#set)
 
+* Implement redis command `sismember` or `sunion` using node_redis client library [Node Redis](https://github.com/jbelmont/node_redis)
+    * open `playground/set.js`
+* `open test/unit/set.test.js`
+    * Write a test with your new function
+* Run your test with command `npm test`
+
 #### Sorted Sets
 
 [Sorted Set Data Type](https://redis.io/topics/data-types#sorted-sets)
 
 [Sorted Set Commands](https://redis.io/commands#sorted_set)
+
+* Redis Sorted Sets are, similarly to Redis Sets, non repeating collections of Strings
+* The difference is that every member of a Sorted Set is associated with score
+    * The score helps order the set,
+    * From the smallest to the greatest score
+    * While members are unique, scores may be repeated.
+
 
 ```sh
 127.0.0.1:6379> zadd grades 95 britney 85 dave 93 ashley 100 zhou
@@ -328,3 +364,9 @@ Read more commands at [Redis Set Commands](https://redis.io/commands#set)
 * `zcard` returned the cardinality value of 4
 * `zrange` returned the lowest to highest members in the sorted set
 * `zrevrank` returned the index of a member in a sorted set, with scores ordered from high to low
+
+* Implement redis command `zcard` using node_redis client library [Node Redis](https://github.com/jbelmont/node_redis)
+    * open `playground/sortedSet.js`
+* `open test/unit/sortedSet.test.js`
+    * Write a test with your new function
+* Run your test with command `npm test`

@@ -22,8 +22,16 @@ function getCardinality (key, cb) {
   })
 }
 
+function getIntersection (keys, cb) {
+  client.sinter(keys, (err, reply) => {
+    if (err) return cb(err)
+    cb(null, reply)
+  })
+}
+
 module.exports = {
   setAdd,
   getMembers,
-  getCardinality
+  getCardinality,
+  getIntersection
 }

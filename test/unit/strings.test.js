@@ -44,3 +44,5 @@ test.cb('getStringLength should return string length', t => {
     t.end()
   })
 })
+
+// TODO: Implement incr function
