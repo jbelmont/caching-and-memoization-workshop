@@ -1,3 +1,5 @@
+'use strict'
+
 const client = require('../redis')
 
 function setValue ({ key, value }) {
