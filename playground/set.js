@@ -29,9 +29,17 @@ function getIntersection (keys, cb) {
   })
 }
 
+function setIsMember (key, value, cb) {
+  client.sismember(key, value, (err, reply) => {
+    if (err) return cb(err)
+    cb(null, reply)
+  })
+}
+
 module.exports = {
   setAdd,
   getMembers,
   getCardinality,
-  getIntersection
+  getIntersection,
+  setIsMember
 }

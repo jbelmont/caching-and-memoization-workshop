@@ -30,8 +30,16 @@ function getHKeys (key, cb) {
   })
 }
 
+function hashDelete (key, field, cb) {
+  client.hdel(key, field, (err, reply) => {
+    if (err) return cb(err)
+    cb(null, reply)
+  })
+}
+
 module.exports = {
   setHash,
   getAll,
-  getHKeys
+  getHKeys,
+  hashDelete
 }

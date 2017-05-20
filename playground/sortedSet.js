@@ -16,7 +16,15 @@ function zGetAll (key, cb) {
   })
 }
 
+function sortedSetCardinality (key, cb) {
+  client.zcard(key, (err, reply) => {
+    if (err) return cb(err)
+    cb(null, reply)
+  })
+}
+
 module.exports = {
   zSetAdd,
-  zGetAll
+  zGetAll,
+  sortedSetCardinality
 }

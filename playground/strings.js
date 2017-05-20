@@ -24,9 +24,17 @@ function getStringLength (key, cb) {
   })
 }
 
+function setIncrement (key, cb) {
+  client.incr(key, (err, reply) => {
+    if (err) return cb(err)
+    cb(null, reply)
+  })
+}
+
 module.exports = {
   setValue,
   getValue,
   appendValue,
-  getStringLength
+  getStringLength,
+  setIncrement
 }

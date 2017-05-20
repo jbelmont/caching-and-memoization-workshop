@@ -46,3 +46,15 @@ test.cb('getStringLength should return string length', t => {
 })
 
 // TODO: Implement incr function
+test.cb('incr should increment a string data type', t => {
+  const KEY = 'num2'
+  users.setValue({
+    key: KEY,
+    value: 2
+  })
+  users.setIncrement(KEY, (err, val) => {
+    if (err) t.fail(err)
+    t.is(val, 3)
+    t.end()
+  })
+})

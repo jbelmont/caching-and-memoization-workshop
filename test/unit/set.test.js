@@ -45,6 +45,12 @@ test.cb('getIntersection should get intersection between 2 or more sets', t => {
 })
 
 // TODO: implement sismember function
-
+test.cb('setIsMember should return a value of 1', t => {
+  set.setIsMember('set:test', 'zhou', (err, isTrue) => {
+    if (err) t.fail(err)
+    t.is(isTrue, 1)
+    t.end()
+  })
+})
 
 // TODO: implement sunion function

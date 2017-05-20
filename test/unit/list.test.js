@@ -30,5 +30,19 @@ test.cb('getIndex should return value at index', t => {
 })
 
 // TODO: implement list function llen
+test.cb('listLength should return the length of the list', t => {
+  list.listLength('list:test', (err, length) => {
+    if (err) t.fail(err)
+    t.is(length, 4)
+    t.end()
+  })
+})
 
 // TODO: implement list function rpop
+test.cb('popTillYouDropFromTheRight should remove an element from the list', t => {
+  list.popTillYouDropFromTheRight('list:test', (err, val) => {
+    if (err) t.fail(err)
+    t.is(val, 'orange')
+    t.end()
+  })
+})

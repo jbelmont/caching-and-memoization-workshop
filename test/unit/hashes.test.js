@@ -31,4 +31,10 @@ test.cb('getKeys should return list of keys', t => {
 })
 
 
-// TODO: implement hdel Redis function
+test.cb('hashDelete should remove hash', t => {
+  hashes.hashDelete(key, 'three', (err, res) => {
+    if (err) t.fail(err)
+    t.is(res, 1)
+    t.end()
+  })
+})

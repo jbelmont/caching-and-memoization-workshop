@@ -18,3 +18,10 @@ test.cb('zadd should add sorted set', t => {
 })
 
 // implement zcard function
+test.cb('sortedSetCardinality should return the cardinality', t => {
+  sortedSet.sortedSetCardinality(KEY, (err, cardinality) => {
+    if (err) t.fail(err)
+    t.is(cardinality, 5)
+    t.end()
+  })
+})

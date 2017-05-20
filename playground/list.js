@@ -23,8 +23,24 @@ function getIndex (key, index, cb) {
   })
 }
 
+function popTillYouDropFromTheRight (key, cb) {
+  client.rpop(key, (err, reply) => {
+    if (err) return cb(err)
+    cb(null, reply)
+  })
+}
+
+function listLength (key, cb) {
+  client.llen(key, (err, reply) => {
+    if (err) return cb(err)
+    cb(null, reply)
+  })
+}
+
 module.exports = {
   setList,
   getList,
-  getIndex
+  getIndex,
+  listLength,
+  popTillYouDropFromTheRight
 }
