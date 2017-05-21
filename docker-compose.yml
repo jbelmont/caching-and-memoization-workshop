@@ -6,6 +6,7 @@ services:
       DOCKER: "true"
     volumes:
       - .:/var/www/app
+      - /var/www/app/node_modules
     ports:
       - "8080:8080"
     links:
@@ -15,6 +16,7 @@ services:
     working_dir: /var/www/app
     volumes:
       - .:/var/www/app
+      - /var/www/app/node_modules
     environment:
       NODE_ENV: testing
     command:

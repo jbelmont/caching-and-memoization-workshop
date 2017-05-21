@@ -1,0 +1,2 @@
+# ignore node_modules when building
+node_modules/
