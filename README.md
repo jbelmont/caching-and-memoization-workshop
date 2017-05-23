@@ -20,4 +20,4 @@ Run `npm test` in order to execute the unit tests
 
 ## Exercises and Guide
 
-All of the workshop concepts and instructions can be found at [Software Caching and Memoization](https://code-craftsmanship-saturdays.github.io/caching-and-memoization/)
+All of the workshop concepts and instructions can be found at [Software Caching and Memoization](https://jbelmont.github.io/caching-and-memoization/)

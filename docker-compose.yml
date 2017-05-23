@@ -16,7 +16,7 @@ services:
     working_dir: /var/www/app
     volumes:
       - .:/var/www/app
-      - /var/www/app/node_modules
+   #   - /var/www/app/node_modules
     environment:
       NODE_ENV: testing
     command:
