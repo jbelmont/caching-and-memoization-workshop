@@ -1,0 +1,593 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Caching · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="memoization.html" />
+    
+    
+    <link rel="prev" href="../" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    README
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2" data-path="caching.html">
+            
+                <a href="caching.html">
+            
+                    
+                    Caching
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="memoization.html">
+            
+                <a href="memoization.html">
+            
+                    
+                    Memoization
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="redis.html">
+            
+                <a href="redis.html">
+            
+                    
+                    Redis
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="websql.html">
+            
+                <a href="websql.html">
+            
+                    
+                    Web SQL
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="indexdb.html">
+            
+                <a href="indexdb.html">
+            
+                    
+                    IndexDB
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="local-storage.html">
+            
+                <a href="local-storage.html">
+            
+                    
+                    Local Storage
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Caching</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="caching">Caching</h1>
+<h2 id="what-is-caching">What Is Caching?</h2>
+<ul>
+<li>Caching is the term for storing reusable responses in order to make subsequent requests faster.</li>
+<li>There are different types of caching available.</li>
+<li>Application caches and memory caches are both popular for their ability to speed up certain responses.</li>
+</ul>
+<h2 id="types-of-cache">Types of Cache</h2>
+<ol>
+<li>Disk cache: The page cache in main memory is managed by the operating system kernel.</li>
+<li>Web cache</li>
+<li>Memoization<ol>
+<li>A cache can store data that is computed on demand rather than retrieved from a backing store.</li>
+<li>Memoization is an optimization technique that stores the results of resource-consuming function calls within a lookup table, allowing subsequent calls to reuse the stored results and avoid repeated computation.</li>
+</ol>
+</li>
+</ol>
+<h2 id="web-caching">Web Caching</h2>
+<p>Web caching is a core design feature of the HTTP protocol</p>
+<pre><code>* It is meant to minimize network traffic while improving perceived responsiveness of the system as a whole.
+</code></pre><p>Caches are found at every level of a content&apos;s journey from the original server to the browser.</p>
+<p>Web caching works by caching the HTTP responses for requests according to certain rules.</p>
+<p>Subsequent requests for cached content can then be fulfilled from a cache closer to the user instead of sending the request all the way back to the web server.</p>
+<h2 id="benefits">Benefits</h2>
+<p>Effective caching aids both content consumers and content providers.</p>
+<p>Some of the benefits that caching brings to content delivery are:</p>
+<ul>
+<li><p>Decreased network costs: Content can be cached at various points in the network path between the content consumer and content origin.</p>
+</li>
+<li><p>When the content is cached closer to the consumer, requests will not add network latency</p>
+</li>
+<li>Improved responsiveness: Caching enables content to be retrieved faster because an entire network round trip is not necessary.</li>
+<li>Caches maintained close to the user, like the browser cache, can make this retrieval nearly instantaneous.</li>
+<li>Increased performance on the same hardware<ul>
+<li>For the server where the content originated, more performance can be squeezed from the same hardware by allowing aggressive caching.</li>
+<li>The content owner can leverage the powerful servers along the delivery path to take the brunt of certain content loads.</li>
+</ul>
+</li>
+<li>Availability of content during network interruptions</li>
+<li>Certain caches can be used to serve content even when if unavailable for short periods of time from the origin</li>
+</ul>
+<h2 id="terminology">Terminology</h2>
+<ul>
+<li><p>Origin server: The origin server is the original location of the content.</p>
+<ul>
+<li>If you are acting as the web server administrator, this is the machine that you control.</li>
+<li>It is responsible for serving any content that could not be retrieved from a cache along the request route</li>
+<li>Setting the caching policy for all content.</li>
+</ul>
+</li>
+<li><p>Cache hit ratio: A cache&apos;s effectiveness is measured in terms of its cache hit ratio or hit rate.</p>
+<ul>
+<li>This is a ratio of the requests able to be retrieved from a cache to the total requests made.</li>
+<li>A high cache hit ratio means that a high percentage of the content was able to be retrieved from the cache.  * This is usually the desired outcome for most administrators.</li>
+</ul>
+</li>
+<li><p>Freshness: Term used to describe whether an item in cache is considered a candidate to serve to a client.</p>
+<ul>
+<li>Content in a cache will only be used to respond if it is within the freshness time frame specified by the caching policy.</li>
+</ul>
+</li>
+<li><p>Stale content: Items in the cache expire according to the cache freshness settings in the caching policy.</p>
+</li>
+<li><p>Expired content is &quot;stale&quot;.</p>
+<ul>
+<li>Expired content cannot be used to respond to client requests. The origin server must be re-contacted to retrieve the new content or at least verify that the cached content is still accurate.</li>
+</ul>
+</li>
+<li><p>Validation: Stale items in the cache can be validated in order to refresh their expiration time.</p>
+<ul>
+<li>Validation involves checking with the origin server to see if cached content is still up to date</li>
+</ul>
+</li>
+<li><p>Invalidation: Invalidation is the process of removing content from the cache before its expiration date.</p>
+<ul>
+<li>Triggered if the item is changed on the origin server and an outdated item in cache causes client issues</li>
+</ul>
+</li>
+</ul>
+<h2 id="cacheable-content">Cacheable Content</h2>
+<p>Items that don&apos;t tend to change frequently are good candidates for caching.</p>
+<p>Cache Friendly Content:</p>
+<ul>
+<li>Logos and brand images</li>
+<li>Nav Icons</li>
+<li>Style sheets</li>
+<li>Javascript files</li>
+<li>Downloadable Content</li>
+<li>Media Files</li>
+</ul>
+<p>More volatile items to cache:</p>
+<ul>
+<li>HTML pages</li>
+<li>Rotating images</li>
+<li>Heavily modified JavaScript and CSS files</li>
+<li>Content tied to auth (Cookies, Tokens, etc)</li>
+</ul>
+<p>Some items that should almost never be cached are:</p>
+<ul>
+<li>Sensitive Dat (banking info, social security numbers, credit card numbers)</li>
+<li>user specific information that can change</li>
+</ul>
+<p>Web Content Cache Locations:</p>
+<ul>
+<li><p>Browser cache: Web browsers themselves maintain a small cache.</p>
+<ul>
+<li>Browsers sets a policy that dictates the most important items to cache.</li>
+<li>This may be user-specific content or content deemed expensive to download and likely to be requested again.</li>
+<li>We will explore IndexDb and Local Storage</li>
+<li>In memory caching as well</li>
+</ul>
+</li>
+<li><p>Intermediary caching proxies: Any server in between the client and infrastructure can cache certain content.</p>
+<ul>
+<li>These caches may be maintained by ISPs or other independent parties.</li>
+</ul>
+</li>
+<li><p>Reverse Cache: Your server infrastructure can implement its own cache for backend services.</p>
+<ul>
+<li>Content can be served from the point of contact instead of hitting backend servers on each request.<ul>
+<li>For example hitting a database for each route that has cacheable content</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="caching-http-headers">Caching HTTP Headers</h2>
+<p>Caching policy is dependent upon two different factors:</p>
+<ol>
+<li>The caching entity itself gets to decide whether or not to cache acceptable content.</li>
+<li>It can decide to cache less than it is allowed to cache, but never more.</li>
+</ol>
+<p><strong>The majority of caching behavior is determined by the caching policy, which is set by the content owner.</strong></p>
+<p>These policies are mainly exercises through the use of specific HTTP headers.</p>
+<p>Cache-focused HTTP Headers:</p>
+<ul>
+<li><p>Expires: The Expires header is very straight-forward, although fairly limited in scope.</p>
+<ul>
+<li>Set a time in the future when the content will expire.</li>
+<li>At this point, any requests for the same content will have to go back to the origin server.</li>
+<li>This header is probably best used only as a fall back.</li>
+</ul>
+</li>
+<li><p>Cache-Control: This is the more modern replacement for the Expires header.</p>
+<ul>
+<li>It is well supported and implements a much more flexible design.</li>
+<li>In almost all cases, this is preferable to Expires, but it may not hurt to set both values.</li>
+<li>We will discuss the specifics of the options you can set with Cache-Control a bit later.</li>
+</ul>
+</li>
+<li><p>Etag: The Etag header is used with cache validation.</p>
+<ul>
+<li>The origin can provide a unique Etag for an item when it initially serves the content.</li>
+<li>When a cache needs to validate the content it has on-hand upon expiration, it can send back the Etag it has for the content.</li>
+<li>The origin will either tell the cache that the content is the same, or send the updated content and new Etag</li>
+</ul>
+</li>
+<li><p>Last-Modified: Specifies the last time that the item was modified.</p>
+<ul>
+<li>This may be used as part of the validation strategy to ensure fresh content.</li>
+</ul>
+</li>
+<li><p>Content-Length: This header is important to set when defining caching policies.</p>
+<ul>
+<li>Certain software will refuse to cache content if it does not know in advanced the size of the content</li>
+</ul>
+</li>
+<li><p>Vary: A cache will use the requested host and the path to the resource as the key to store the cache item.</p>
+<ul>
+<li>The Vary header can be used to tell caches to pay attention to an additional header when deciding whether a request is for the same item.</li>
+<li>Tells caches to key by the Accept-Encoding header as well, so that the cache will know to differentiate between compressed and uncompressed content.</li>
+</ul>
+</li>
+</ul>
+<h2 id="cache-control-flags">Cache-Control Flags</h2>
+<p>Cache-Control options:</p>
+<ul>
+<li><p>no-cache: Specifies that any cached content must be re-validated on each request before being served to client.</p>
+<ul>
+<li>Contents is marked as stale immediately, but uses revalidation techniques to avoid re-downloading again</li>
+</ul>
+</li>
+<li><p>no-store: This instruction indicates that the content cannot be cached in any way.</p>
+<ul>
+<li>This is appropriate to set if the response represents sensitive data.</li>
+</ul>
+</li>
+<li><p>public: This marks the content as public, meaning it can be cached by the browser and any intermediate caches.</p>
+<ul>
+<li>For requests that HTTP authentication, responses are marked private by default.</li>
+<li>This header overrides that setting.</li>
+</ul>
+</li>
+</ul>
+<p>More options can be found at <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control" target="_blank">Cache Control</a></p>
+<p>Options can be used in different ways to achieve various caching behavior.</p>
+<h2 id="developing-a-caching-strategy">Developing a Caching Strategy</h2>
+<p>Ideally everything would be cached and your servers would only be contacted to validate content occasionally.</p>
+<p>This doesn&apos;t often happen in practice though, so you should try to set some sane caching policies that aim to balance between implementing long-term caching and responding to the demands of a changing site.</p>
+<h2 id="common-issues-with-caching">Common Issues with Caching</h2>
+<p>There are many situations where caching cannot or should not be implemented due to how the content is produced</p>
+<ol>
+<li>Dynamic content generated by users</li>
+<li>Sensitive information such as banking information, etc.</li>
+<li>Older versions of your content are already out even though new versions have been published.</li>
+</ol>
+<h2 id="general-recommendations">General Recommendations</h2>
+<ul>
+<li><p>Specific directories for images, css, and shared content</p>
+<ul>
+<li>Placing content into dedicated directories will allow you to easily refer to them from any page on your site.</li>
+</ul>
+</li>
+<li><p>Use the same URL to refer to the same items</p>
+<ul>
+<li>Caches key off of both the host and the path to the content requested</li>
+<li>Ensure that you refer to your content in the same way on all of your pages.</li>
+<li>The previous recommendation makes this significantly easier.</li>
+</ul>
+</li>
+<li><p>Use CSS image sprites where possible</p>
+<ul>
+<li>Sprites for items like icons and navigation decrease the number of round trips needed to render your site</li>
+<li>Allowing your site to cache that single sprite for a long time.</li>
+<li>Use Single SVG file instead of multiple svg as well</li>
+</ul>
+</li>
+<li><p>Host scripts and external resources locally where possible</p>
+<ul>
+<li>If you utilize javascript scripts and other external resources, consider hosting those resources on your own dedicated servers if the correct headers are not being provided upstream.</li>
+<li>Keep up to date with downstream changes however so you can update your local copy</li>
+</ul>
+</li>
+<li><p>Fingerprint cache items</p>
+<ul>
+<li>For static content like CSS and Javascript files, it may be appropriate to fingerprint each item.</li>
+<li>This means adding a unique identifier to the filename (often a hash of the file) so that if the resource is modified, the new resource name can be requested, causing the requests to correctly bypass the cache.</li>
+<li>There are a variety of tools that can assist in creating fingerprints and modifying the references to them within HTML documents.</li>
+</ul>
+</li>
+<li><p>Allow all caches to store generic assets</p>
+<ul>
+<li>Static content and content that is not user-specific should be cached at all points in the delivery chain.</li>
+<li>This will allow intermediary caches to respond with the content for multiple users.</li>
+</ul>
+</li>
+<li><p>Allow browsers to cache user-specific assets</p>
+<ul>
+<li>For per-user content, it is often acceptable and useful to allow caching within the user&apos;s browser.</li>
+<li>Caching in the browser will allow for instant retrieval for users during subsequent visits.</li>
+</ul>
+</li>
+<li><p>Make exceptions for essential time-sensitive content</p>
+<ul>
+<li>Sites that have a shopping cart should reflect the items in the cart immediately.<ul>
+<li>The no-cache or no-store options can be set in the Cache-Control header to achieve this.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Always provide validators</p>
+<ul>
+<li>Validators allow stale content to be refreshed without having to download the entire resource again.</li>
+<li>Setting the Etag and the Last-Modified headers allow caches to validate their content and re-serve it if it has not been modified at the origin, further reducing load.</li>
+</ul>
+</li>
+<li><p>Set long freshness times for supporting content</p>
+<ul>
+<li>Items like images and css that don&apos;t change often</li>
+</ul>
+</li>
+<li><p>Set short freshness times for parent content</p>
+<ul>
+<li>The HTML itself will be downloaded frequently, allowing it to respond to changes rapidly.</li>
+<li>The supporting content can then be cached aggressively.</li>
+</ul>
+</li>
+</ul>
+<p><strong>The key is to strike a balance that favors aggressive caching where possible while leaving opportunities to invalidate entries in the future when changes are made.</strong></p>
+<p>Each Site will likely have the following items:</p>
+<ol>
+<li>Aggressively cached items</li>
+<li>Cached items with a short freshness time and the ability to re-validate</li>
+<li>Items that should not be cached at all</li>
+</ol>
+<p><strong>The goal is to move content into the first and second category when possible while maintaining an acceptable level of accuracy.</strong></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../" class="navigation navigation-prev " aria-label="Previous page: README">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="memoization.html" class="navigation navigation-next " aria-label="Next page: Memoization">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Caching","level":"1.2","depth":1,"next":{"title":"Memoization","level":"1.3","depth":1,"path":"docs/memoization.md","ref":"docs/memoization.md","articles":[]},"previous":{"title":"README","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/caching.md","mtime":"2018-01-11T18:05:40.269Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-08-17T18:25:02.923Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

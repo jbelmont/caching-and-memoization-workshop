@@ -1,0 +1,652 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Redis · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="websql.html" />
+    
+    
+    <link rel="prev" href="memoization.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    README
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="caching.html">
+            
+                <a href="caching.html">
+            
+                    
+                    Caching
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="memoization.html">
+            
+                <a href="memoization.html">
+            
+                    
+                    Memoization
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4" data-path="redis.html">
+            
+                <a href="redis.html">
+            
+                    
+                    Redis
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="websql.html">
+            
+                <a href="websql.html">
+            
+                    
+                    Web SQL
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="indexdb.html">
+            
+                <a href="indexdb.html">
+            
+                    
+                    IndexDB
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="local-storage.html">
+            
+                <a href="local-storage.html">
+            
+                    
+                    Local Storage
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Redis</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="redis">Redis</h1>
+<p><a href="https://redis.io/download" target="_blank">Redis Download</a></p>
+<p><a href="https://try.redis.io/" target="_blank">Redis REPL</a></p>
+<p>Redis is not a plain key-value store, it is actually a data structures server, supporting different kinds of values.</p>
+<p>Redis Data Structures:</p>
+<ul>
+<li>Binary-safe strings.</li>
+<li>Lists: collections of string elements sorted according to the order of insertion. They are basically linked lists.</li>
+<li>Sets: collections of unique, unsorted string elements.</li>
+<li>Sorted sets, similar to Sets but where every string element is associated to a floating number value, called score.</li>
+<li>Hashes, which are maps composed of fields associated with values. Both the field and the value are strings.</li>
+<li>Bit arrays (or simply bitmaps): it is possible, using special commands, to handle String values like an array of bits</li>
+<li>HyperLogLogs: this is a probabilistic data structure which is used in order to estimate the cardinality of a set.</li>
+</ul>
+<h2 id="redis-database">Redis Database</h2>
+<ul>
+<li>In Redis, databases are simply identified by a number with the default database being number 0.</li>
+<li>If you want to change to a different database you can do so via the select command.</li>
+<li>In the command line interface, type select 1.</li>
+<li>Redis should reply with an OK message and your prompt should change to something like <code>redis 127.0.0.1:6379[1]&gt;.</code></li>
+<li>If you want to switch back to the default database, just enter select 0 in the command line interface</li>
+</ul>
+<h2 id="redis-commands">Redis Commands</h2>
+<p>Redis commands are grouped by functionality</p>
+<ul>
+<li>Sets<ul>
+<li>Unique Elements.</li>
+<li>Available commands: sadd, scard, sismember</li>
+</ul>
+</li>
+<li>Lists:<ul>
+<li>collections of string elements</li>
+<li>Available commands: llen, lpush</li>
+</ul>
+</li>
+<li>Keys</li>
+<li>Hashes<ul>
+<li>consist of key and value pairs</li>
+</ul>
+</li>
+</ul>
+<p>Find all the available Redis Commands here <a href="https://redis.io/commands" target="_blank">Redis Commands</a></p>
+<p><strong>You can filter by functionality because the default is to show all the Redis Commands</strong></p>
+<h2 id="redis-clients">Redis Clients</h2>
+<p>You can find all the available Redis Client Libraries here <a href="https://redis.io/clients" target="_blank">Redis Clients</a></p>
+<p>The particular client we will be using for the workshop is <a href="https://github.com/NodeRedis/node_redis" target="_blank">Node Redis</a></p>
+<p>Redis breaks out uses for data structures according to how they should be used albeit lists, hashes, scalars, and sets</p>
+<p>This means that if you have JSON object in Redis you can&apos;t just store like an json object
+Also nested json objects should either be stringified with <code>JSON.stringify(obj)</code> or used with a hash data structure</p>
+<h2 id="querying-redis">Querying Redis</h2>
+<p>Redis stores everything as a key so you can&apos;t use it like you would think as a normal query language</p>
+<p>For example</p>
+<p><code>SELECT * from Books where Books.id = 1</code></p>
+<p>A type of query such as this wouldn&apos;t work in Redis</p>
+<ul>
+<li>Use lots of key-value pairs in Redis.</li>
+<li>So feel free to store each row of the table in a different row.</li>
+<li>Use Redis&apos; hash map data type</li>
+<li>Form key name from primary key values of the table by a separator (such as &quot;:&quot;)</li>
+<li>Store the remaining fields as a hash</li>
+<li>When you want to query a single row, directly form the key and retrieve its results</li>
+<li>When you want to query a range, use wild char &quot;*&quot; towards your key.</li>
+</ul>
+<h2 id="memory-and-persistence-in-redis">Memory and Persistence in Redis</h2>
+<p>Redis is an in-memory persistent store</p>
+<p>Redis keeps all your data in memory so there is an associated cost for this in terms of Server RAM</p>
+<h2 id="redis-data-structures">Redis Data Structures</h2>
+<h4 id="strings">Strings</h4>
+<p><a href="https://redis.io/topics/data-types#strings" target="_blank">String Data Type</a></p>
+<p><a href="https://redis.io/commands#string" target="_blank">String Commands</a></p>
+<pre><code class="lang-sh">&gt; <span class="hljs-built_in">set</span> movies:rocky <span class="hljs-string">&apos;{ &quot;name&quot;: rocky, &quot;characters&quot;: [&quot;Rocky Balboa&quot;, &quot;Paulie&quot;, &quot;Adrien&quot;] }&apos;</span>
+OK
+
+&gt; get movies:rocky
+<span class="hljs-string">&quot;{ \&quot;name\&quot;: rocky, \&quot;characters\&quot;: [\&quot;Rocky Balboa\&quot;, \&quot;Paulie\&quot;, \&quot;Adrien\&quot;] }&quot;</span>
+
+&gt; strlen movies:rocky
+(<span class="hljs-built_in">integer</span>) 69
+
+&gt; append movies:rocky <span class="hljs-string">&quot;Yo Adrian&quot;</span>
+(<span class="hljs-built_in">integer</span>) 78
+
+&gt; get movies:rocky
+<span class="hljs-string">&quot;{ \&quot;name\&quot;: rocky, \&quot;characters\&quot;: [\&quot;Rocky Balboa\&quot;, \&quot;Paulie\&quot;, \&quot;Adrien\&quot;] }Yo Adrian&quot;</span>
+</code></pre>
+<p>Notice above here that the string Yo Adrian was appended to the JSON object which doesn&apos;t really make sense
+A JSON object can&apos;t really be represented as a string</p>
+<pre><code class="lang-sh">127.0.0.1:6379[1]&gt; <span class="hljs-built_in">help</span> incr
+INCR key
+summary: Increment the <span class="hljs-built_in">integer</span> value of a key by one
+since: 1.0.0
+group: string
+
+127.0.0.1:6379[1]&gt; incr random:num
+(<span class="hljs-built_in">integer</span>) 1
+
+127.0.0.1:6379[1]&gt; incr random:num
+(<span class="hljs-built_in">integer</span>) 2
+
+127.0.0.1:6379[1]&gt; <span class="hljs-built_in">help</span> incrby
+INCRBY key increment
+summary: Increment the <span class="hljs-built_in">integer</span> value of a key by the given amount
+since: 1.0.0
+group: string
+
+127.0.0.1:6379[1]&gt; incrby num:incr 10
+(<span class="hljs-built_in">integer</span>) 10
+
+127.0.0.1:6379[1]&gt; incrby num2:incr 25
+(<span class="hljs-built_in">integer</span>) 25
+
+127.0.0.1:6379[1]&gt; incr movies:rocky
+(error) ERR value is not an <span class="hljs-built_in">integer</span> or out of range
+</code></pre>
+<p><em>Notice here that trying to increment movies:rocky created a Redis error which makes sense movies:rocky is a string</em></p>
+<h6 id="exercise">Exercise</h6>
+<ul>
+<li>Implement redis command <code>incr</code> using node_redis client library <a href="https://github.com/jbelmont/node_redis" target="_blank">Node Redis</a><ul>
+<li>open <code>playground/strings.js</code></li>
+</ul>
+</li>
+<li><code>open test/unit/strings.test.js</code><ul>
+<li>Write a test with your new function</li>
+</ul>
+</li>
+<li>Run your test with command <code>npm test</code></li>
+</ul>
+<h4 id="hashes">Hashes</h4>
+<p><a href="https://redis.io/topics/data-types#hashes" target="_blank">Hash Data Type</a></p>
+<p><a href="https://redis.io/commands#hash" target="_blank">Hash Commands</a></p>
+<p>Hashes are like strings except you have a field value</p>
+<pre><code class="lang-sh">127.0.0.1:6379[1]&gt; hset users:user name bob
+(<span class="hljs-built_in">integer</span>) 1
+
+127.0.0.1:6379[1]&gt; hget users:user name
+<span class="hljs-string">&quot;bob&quot;</span>
+
+127.0.0.1:6379[1]&gt; hmset movie:fields name <span class="hljs-string">&quot;Rocky&quot;</span> rating 5 year 1976
+OK
+
+127.0.0.1:6379[1]&gt; HGETALL movie:fields
+1) <span class="hljs-string">&quot;name&quot;</span>
+2) <span class="hljs-string">&quot;Rocky&quot;</span>
+3) <span class="hljs-string">&quot;rating&quot;</span>
+4) <span class="hljs-string">&quot;5&quot;</span>
+5) <span class="hljs-string">&quot;year&quot;</span>
+6) <span class="hljs-string">&quot;1976&quot;</span>
+
+127.0.0.1:6379[1]&gt; hkeys movie:fields
+1) <span class="hljs-string">&quot;name&quot;</span>
+2) <span class="hljs-string">&quot;rating&quot;</span>
+3) <span class="hljs-string">&quot;year&quot;</span>
+
+127.0.0.1:6379[1]&gt; hkeys movie:fields
+1) <span class="hljs-string">&quot;name&quot;</span>
+2) <span class="hljs-string">&quot;rating&quot;</span>
+3) <span class="hljs-string">&quot;year&quot;</span>
+
+127.0.0.1:6379[1]&gt; hdel movie:fields rating
+(<span class="hljs-built_in">integer</span>) 1
+
+127.0.0.1:6379[1]&gt; hkeys movie:fields
+1) <span class="hljs-string">&quot;name&quot;</span>
+2) <span class="hljs-string">&quot;year&quot;</span>
+</code></pre>
+<p>Notice that we were able to set multiple fields with the Redis command <code>hmset</code> and get all the values with <code>hgetall</code></p>
+<p><em>Hashes give you more control than regular strings because you can map values instead of one scalar value</em></p>
+<h6 id="exercise">Exercise</h6>
+<ul>
+<li>Implement redis command <code>hdel</code> using node_redis client library <a href="https://github.com/jbelmont/node_redis" target="_blank">Node Redis</a><ul>
+<li>open <code>playground/hashes.js</code></li>
+</ul>
+</li>
+<li><code>open test/unit/hashes.test.js</code><ul>
+<li>Write a test with your new function</li>
+</ul>
+</li>
+<li>Run your test with command <code>npm test</code></li>
+</ul>
+<h4 id="lists">Lists</h4>
+<p><a href="https://redis.io/topics/data-types#lists" target="_blank">List Data Type</a></p>
+<p><a href="https://redis.io/commands#list" target="_blank">List Commands</a></p>
+<pre><code class="lang-sh">127.0.0.1:6379&gt; lpush users <span class="hljs-string">&quot;soldier&quot;</span> <span class="hljs-string">&quot;John Rambo&quot;</span> <span class="hljs-string">&quot;123-45-5678&quot;</span> <span class="hljs-string">&quot;Sergeant First Class&quot;</span>
+(<span class="hljs-built_in">integer</span>) 4
+
+127.0.0.1:6379&gt; lindex users 0
+<span class="hljs-string">&quot;Sergeant First Class&quot;</span>
+
+127.0.0.1:6379&gt; lindex users 1
+<span class="hljs-string">&quot;123-45-5678&quot;</span>
+
+127.0.0.1:6379&gt; lindex users 2
+<span class="hljs-string">&quot;John Rambo&quot;</span>
+
+127.0.0.1:6379&gt; lindex users 3
+<span class="hljs-string">&quot;soldier&quot;</span>
+
+127.0.0.1:6379[1]&gt; lpop users
+<span class="hljs-string">&quot;Sergeant First Class&quot;</span>
+
+127.0.0.1:6379&gt; llen users
+(<span class="hljs-built_in">integer</span>) 3
+
+127.0.0.1:6379[1]&gt; rpop users
+<span class="hljs-string">&quot;soldier&quot;</span>
+
+127.0.0.1:6379&gt; rpop users
+<span class="hljs-string">&quot;soldier&quot;</span>
+127.0.0.1:6379&gt; llen users
+(<span class="hljs-built_in">integer</span>) 2
+</code></pre>
+<p>Notice here that we pushed 4 strings onto the list <code>users</code></p>
+<p><code>lindex</code> takes a key and a index and returns the value if found else it returns <code>nil</code> so the lookup:</p>
+<p><code>lindex users 2</code> return &quot;John Rambo&quot;</p>
+<p>Notice that <code>rpop</code> removes and returns the last element of the list stored at <code>key</code> so when we run <code>llen</code> the list has been reduced by 1.</p>
+<p>Conversely <code>lpop</code> removes and returns the first element of the list stored at <code>key</code> so when we run <code>llen</code> again the list is now length of 2</p>
+<ul>
+<li>Implement redis command <code>llen</code> or <code>rpop</code> using node_redis client library <a href="https://github.com/jbelmont/node_redis" target="_blank">Node Redis</a><ul>
+<li>open <code>playground/list.js</code></li>
+</ul>
+</li>
+<li><code>open test/unit/list.test.js</code><ul>
+<li>Write a test with your new function</li>
+</ul>
+</li>
+<li>Run your test with command <code>npm test</code></li>
+</ul>
+<h4 id="sets">Sets</h4>
+<p><a href="https://redis.io/topics/data-types#sets" target="_blank">Set Data Type</a></p>
+<p><a href="https://redis.io/commands#set" target="_blank">Set Commands</a></p>
+<ul>
+<li>Sets are great for tagging or tracking any other properties of a value for which duplicates don&#x2019;t make any sense</li>
+<li>Sets are also greate when you want to apply set operations such as intersections and unions</li>
+</ul>
+<pre><code class="lang-sh">127.0.0.1:6379&gt; sadd movies <span class="hljs-string">&quot;Rocky&quot;</span>
+(<span class="hljs-built_in">integer</span>) 1
+
+127.0.0.1:6379&gt; sadd movies <span class="hljs-string">&quot;The Matrix&quot;</span>
+(<span class="hljs-built_in">integer</span>) 1
+
+127.0.0.1:6379&gt; sadd movies <span class="hljs-string">&quot;Chinese Connection&quot;</span>
+(<span class="hljs-built_in">integer</span>) 1
+
+127.0.0.1:6379&gt; scard movies
+(<span class="hljs-built_in">integer</span>) 3
+
+127.0.0.1:6379&gt; sadd movies2 <span class="hljs-string">&quot;Rocky&quot;</span>
+(<span class="hljs-built_in">integer</span>) 1
+
+127.0.0.1:6379&gt; sadd movies2 <span class="hljs-string">&quot;Rambo&quot;</span>
+(<span class="hljs-built_in">integer</span>) 1
+
+127.0.0.1:6379&gt; sadd movies2 <span class="hljs-string">&quot;Chinese Connection&quot;</span>
+(<span class="hljs-built_in">integer</span>) 1
+
+127.0.0.1:6379&gt; sdiff movies movies2
+1) <span class="hljs-string">&quot;The Matrix&quot;</span>
+
+127.0.0.1:6379&gt; sinter movies movies2
+1) <span class="hljs-string">&quot;Rocky&quot;</span>
+2) <span class="hljs-string">&quot;Chinese Connection&quot;</span>
+
+127.0.0.1:6379&gt; sunion movies movies2
+1) <span class="hljs-string">&quot;The Matrix&quot;</span>
+2) <span class="hljs-string">&quot;Chinese Connection&quot;</span>
+3) <span class="hljs-string">&quot;Rocky&quot;</span>
+4) <span class="hljs-string">&quot;Rambo&quot;</span>
+
+127.0.0.1:6379&gt; sismember movies <span class="hljs-string">&quot;Rocky&quot;</span>
+(<span class="hljs-built_in">integer</span>) 1
+
+127.0.0.1:6379&gt; smembers movies2
+1) <span class="hljs-string">&quot;Rambo&quot;</span>
+2) <span class="hljs-string">&quot;Rocky&quot;</span>
+3) <span class="hljs-string">&quot;Chinese Connection&quot;</span>
+</code></pre>
+<p>Notice here that created 2 different sets <code>movies</code> and <code>movies2</code> and we were able to do set operations on them.</p>
+<ul>
+<li><code>sinter</code> returns the intersection between 2 or more sets</li>
+<li><code>sdiff</code> returns the set difference between 2 or more sets</li>
+<li><code>sunion</code> returns the all the movies that exist in the specified sets or more plainly the union between the sets</li>
+<li><code>scard</code> returns the total number of elements or <code>cardinality</code> of the set</li>
+<li><code>sismember</code> returns 1 (i.e. true) if a value exists in the set</li>
+<li><code>smembers</code> returns all the values in the set</li>
+<li><code>sadd</code> adds one or more members to a set</li>
+</ul>
+<p>Read more commands at <a href="https://redis.io/commands#set" target="_blank">Redis Set Commands</a></p>
+<ul>
+<li>Implement redis command <code>sismember</code> or <code>sunion</code> using node_redis client library <a href="https://github.com/jbelmont/node_redis" target="_blank">Node Redis</a><ul>
+<li>open <code>playground/set.js</code></li>
+</ul>
+</li>
+<li><code>open test/unit/set.test.js</code><ul>
+<li>Write a test with your new function</li>
+</ul>
+</li>
+<li>Run your test with command <code>npm test</code></li>
+</ul>
+<h4 id="sorted-sets">Sorted Sets</h4>
+<p><a href="https://redis.io/topics/data-types#sorted-sets" target="_blank">Sorted Set Data Type</a></p>
+<p><a href="https://redis.io/commands#sorted_set" target="_blank">Sorted Set Commands</a></p>
+<ul>
+<li>Redis Sorted Sets are, similarly to Redis Sets, non repeating collections of Strings</li>
+<li>The difference is that every member of a Sorted Set is associated with score<ul>
+<li>The score helps order the set,</li>
+<li>From the smallest to the greatest score</li>
+<li>While members are unique, scores may be repeated.</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-sh">127.0.0.1:6379&gt; zadd grades 95 britney 85 dave 93 ashley 100 zhou
+(<span class="hljs-built_in">integer</span>) 4
+
+127.0.0.1:6379&gt; zcard grades
+(<span class="hljs-built_in">integer</span>) 4
+
+127.0.0.1:6379&gt; zrange grades 0 -1
+1) <span class="hljs-string">&quot;dave&quot;</span>
+2) <span class="hljs-string">&quot;ashley&quot;</span>
+3) <span class="hljs-string">&quot;britney&quot;</span>
+4) <span class="hljs-string">&quot;zhou&quot;</span>
+
+127.0.0.1:6379&gt; zrevrank grades dave
+(<span class="hljs-built_in">integer</span>) 3
+
+127.0.0.1:6379&gt; zrevrank grades zhou
+(<span class="hljs-built_in">integer</span>) 0
+</code></pre>
+<ul>
+<li><code>zadd</code> added 4 members to the grades sorted set</li>
+<li><code>zcard</code> returned the cardinality value of 4</li>
+<li><code>zrange</code> returned the lowest to highest members in the sorted set</li>
+<li><p><code>zrevrank</code> returned the index of a member in a sorted set, with scores ordered from high to low</p>
+</li>
+<li><p>Implement redis command <code>zcard</code> using node_redis client library <a href="https://github.com/jbelmont/node_redis" target="_blank">Node Redis</a></p>
+<ul>
+<li>open <code>playground/sortedSet.js</code></li>
+</ul>
+</li>
+<li><code>open test/unit/sortedSet.test.js</code><ul>
+<li>Write a test with your new function</li>
+</ul>
+</li>
+<li>Run your test with command <code>npm test</code></li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="memoization.html" class="navigation navigation-prev " aria-label="Previous page: Memoization">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="websql.html" class="navigation navigation-next " aria-label="Next page: Web SQL">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Redis","level":"1.4","depth":1,"next":{"title":"Web SQL","level":"1.5","depth":1,"path":"docs/websql.md","ref":"docs/websql.md","articles":[]},"previous":{"title":"Memoization","level":"1.3","depth":1,"path":"docs/memoization.md","ref":"docs/memoization.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/redis.md","mtime":"2018-01-11T18:05:40.269Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-08-17T18:25:02.923Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
